@@ -1,0 +1,74 @@
+﻿@using PhoneStore.Models 
+
+@{
+    ViewBag.Title = "Tìm kiếm theo tên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Kết quả tìm kiếm @ViewBag.KW
+}
+
+@section js {
+    <script>
+    $('a[data-proid]').on('click', function () {
+        var proId = $(this).attr('data-proid');
+        $("input[name='ProID']").val(proId);
+        $('#frmAddToCart').submit();
+    });
+    </script>
+
+}
+
+@if (Model.Count == 0)
+{
+    <text>Không có sản phẩm nào</text>
+}
+else
+{
+    <form id="frmAddToCart" method="post" action="@Url.Action("ATCAtSearchName", "Giohang")">
+        <input type="hidden" name="ten" value="@ViewBag.KW" />
+        <input type="hidden" name="page" value="@ViewBag.CurPage" />
+        <input type="hidden" name="ProID" />
+    </form>
+    <div class="row">
+        @foreach (DIENTHOAI dt in Model)
+        {
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <a href="@Url.Action("Chitiet", "Dienthoai", new { id = @dt.MaDT })"><img src="/Images/Products/@dt.MaDT/sm.jpg" width="241" height="83" alt="@dt.TenDT" title="@dt.TenDT" /></a>
+                    <div class="caption">
+                        <a href="@Url.Action("Chitiet", "Dienthoai", new { id = @dt.MaDT })"><h3>@dt.TenDT</h3></a>
+                        <span style="color: green; font-size: 15pt">@string.Format("{0:N0}", dt.DonGia) ₫</span><br /><br />
+                        <p>
+                            <a href="@Url.Action("Chitiet", "Dienthoai", new { id = @dt.MaDT })" class="btn btn-primary" role="button"><i class="fa fa-bars"></i> Chi tiết</a>
+                            @if (PhoneStore.Helpers.CurrentContext.IsLogin())
+                            {
+                                <a href="#" data-proid="@dt.MaDT" class="btn btn-danger" role="button"><i class="fa fa-shopping-cart"></i> Mua hàng</a>
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <nav>
+        <ul class="pagination">
+            <li class="@(ViewBag.CurPage == 1 ? "disabled" : "")">
+                <a href="@(ViewBag.CurPage == 1 ? "#" : @Url.Action("TimkiemTheoTen", "Dienthoai", new { Ten = ViewBag.KW, page = ViewBag.CurPage - 1 }))" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= ViewBag.PageCount; i++)
+            {
+                <li class="@(ViewBag.CurPage == i ? "active" : "")"><a href="@Url.Action("TimkiemTheoTen", "Dienthoai", new { Ten = ViewBag.KW, page = i })">@i</a></li>
+            }
+            <li class="@(ViewBag.CurPage == ViewBag.PageCount ? "disabled" : "")">
+                <a href="@(ViewBag.CurPage == ViewBag.PageCount ? "#" : @Url.Action("TimkiemTheoTen", "Dienthoai", new { Ten = ViewBag.KW, page = ViewBag.CurPage + 1 }))" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+}
+

@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Thêm mới nhà sản xuất";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Thêm mới nhà sản xuất
+}
+
+@section css {
+    <link href="~/Assets/sweetalert-master/lib/sweet-alert.css" rel="stylesheet" />
+}
+
+@section js {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Assets/sweetalert-master/lib/sweet-alert.min.js"></script>
+
+    <script>
+    $(function () {
+        $('#frmAddLoai').validate({
+            rules: {
+                TenNSX: {
+                    required: true
+                },
+                QuocGia: {
+                    required: true
+                },
+            },
+            messages: {
+                TenNSX: {
+                    required: "Chưa nhập tên nhà sản xuất.",
+                },
+                QuocGia: {
+                    required: "Chưa nhập tên quốc gia.",
+                },
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function(error, element){
+                var alertDiv = $('.alert-warning', $('#frmAddLoai'));
+                error.appendTo(alertDiv);
+            },
+
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+
+            success: function (label)
+            {
+                var name = label.attr('for');
+                $('[name=' + name + ']').closest('.form-group').removeClass('has-error');
+
+                label.remove();
+
+                if($('.help-block', $('.alert-warning')).length === 0) {
+                    $('.alert-warning', $('#frmAddLoai')).addClass('hidden');
+                }
+            },
+            invalidHandler: function (event, validator) {
+                $('.alert-warning', $('#frmAddLoai')).removeClass('hidden');
+                $('.alert-success', $('#frmAddLoai')).addClass('hidden');
+            },
+        });
+    });
+
+    @if(ViewBag.Added != null && ViewBag.Added == true)
+    {
+        <text>swal("Thành công!", "Đã thêm 1 nhà sản xuất!", "success")</text>
+    }
+    </script>
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form class="form-horizontal" method="post" action="" id="frmAddLoai">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="alert alert-warning alert-dismissible @(ViewBag.Err == null ? "hidden" : "")" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Lỗi: </strong><span>@ViewBag.Err</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TenNSX" class="col-sm-2 control-label">Tên nhà sản xuất</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="TenNSX" name="TenNSX" placeholder="Tên nhà sản xuất">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="QuocGia" class="col-sm-2 control-label">Quốc gia</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="QuocGia" name="QuocGia" placeholder="Quốc gia">
+                </div>
+            </div>
+            <br />
+            <a href="@Url.Action("GetAllNSX", "NhaSX")" class="btn btn-primary" role="button">
+                <i class="fa fa-mail-reply"></i> Danh sách nhà sản xuất
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Thêm
+            </button>
+        </form>
+    </div>
+</div>
+

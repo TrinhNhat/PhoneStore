@@ -1,0 +1,28 @@
+﻿@model PhoneStore.Models.HANGDIENTHOAI
+@{
+    ViewBag.Title = "Xóa hãng điện thoại";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Xóa hãng điện thoại
+}
+
+@if (Model == null)
+{
+    <text>Hãng sản phẩm đã xóa</text><hr />
+    <a href="@Url.Action("GetAllLoai", "Admin")" class="btn btn-primary"><i class="fa fa-mail-reply"></i> Danh sách hãng</a>
+}
+else
+{
+    <form method="post" action="">
+        <input type="hidden" name="MaHang" value="@Model.MaHang" />
+
+        <h4>Mã hãng: @Model.MaHang</h4>
+        <h4>Tên hãng: @Model.TenHang</h4>
+        <br />
+        <a href="@Url.Action("GetAllLoai", "HangDT")" class="btn btn-primary"><i class="fa fa-mail-reply"></i> Danh sách hãng</a>
+        <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Xóa</button>
+    </form>
+}
+

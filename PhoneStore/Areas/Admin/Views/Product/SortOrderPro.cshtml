@@ -1,0 +1,106 @@
+﻿@model List<PhoneStore.Areas.Admin.Models.EditProductModel>
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Danh sách sản phẩm
+}
+
+@section css {
+    <link href="~/Assets/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Assets/sweetalert-master/lib/sweet-alert.css" rel="stylesheet" />
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <a href="/Admin/Product/AddProduct" role="button" class="btn btn-primary pull-left">
+            <i class="fa fa-plus"></i>&nbsp;Thêm Sản Phẩm
+        </a>
+        <form id="frmSort" method="post" action="@Url.Action("SortOrderPro", "Product")">
+            <div style="margin-bottom: 5px" class="pull-right">
+                <select class="selectpicker" id="cboSort" name="dk">
+                    <option value="0" @(ViewBag.DK == null ? "selected='selected'" : "")>Sắp xếp sản phẩm</option>
+                    <option value="1" @(ViewBag.DK == 1 ? "selected='selected'" : "")>Sản phẩm mới dần</option>
+                    <option value="2" @(ViewBag.DK == 2 ? "selected='selected'" : "")>Sản phẩm cũ dần</option>
+                    <option value="3" @(ViewBag.DK == 3 ? "selected='selected'" : "")>Số lượng tăng dần</option>
+                    <option value="4" @(ViewBag.DK == 4 ? "selected='selected'" : "")>Số lượng giảm dần</option>
+                    <option value="5" @(ViewBag.DK == 5 ? "selected='selected'" : "")>Giá tăng dần</option>
+                    <option value="6" @(ViewBag.DK == 6 ? "selected='selected'" : "")>Giá giảm dần</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="=row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="col-sm-1">Mã ĐT</th>
+                    <th class="col-sm-2">Tên điện thoại</th>
+                    <th class="col-sm-2">Ngày nhập</th>
+                    <th class="col-sm-1">Số lượng</th>
+                    <th class="col-sm-1">Đơn giá (VNĐ)</th>
+                    <th class="col-sm-2">Hãng</th>
+                    <th class="col-sm-2">Nhà sản xuất</th>
+                    <th class="col-sm-2">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sp in Model)
+                {
+                    <tr>
+                        <td>@sp.MaDT</td>
+                        <td>@sp.TenDT</td>
+                        <td>@sp.NgayNhap.ToString("MM/dd/yyyy").Split(' ')[0]</td>
+                        <td>@sp.SLTon</td>
+                        <td>@string.Format("{0:N0}", sp.DonGia)</td>
+                        <td>@sp.TenHang</td>
+                        <td>@sp.TenNSX</td>
+                        <td>
+                            <a class="btn btn-danger btn-xs" href="@Url.Action("RemoveProduct", "Product", new { madt = sp.MaDT })" role="button" title="Xóa" data-del-proid="@sp.MaDT">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </a>
+                            <a class="btn btn-primary btn-xs" href="@Url.Action("EditProduct", "Product", new { madt = sp.MaDT })" role="button" title="Cập nhật" data-upd-proid="@sp.MaDT">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li class="@(ViewBag.CurPage == 1 ? "disabled" : "")">
+                    <a href="@(ViewBag.CurPage == 1 ? "#" : @Url.Action("SortOrderPro", "Product", new { dk = ViewBag.DK, page = ViewBag.CurPage - 1 }))" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @for (int i = 1; i <= ViewBag.PageCount; i++)
+                {
+                    <li class="@(ViewBag.CurPage == i ? "active" : "")"><a href="@Url.Action("SortOrderPro", "Product", new { dk = ViewBag.DK, page = i })">@i</a></li>
+                }
+                <li class="@(ViewBag.CurPage == ViewBag.PageCount ? "disabled" : "")">
+                    <a href="@(ViewBag.CurPage == ViewBag.PageCount ? "#" : @Url.Action("SortOrderPro", "Product", new { dk = ViewBag.DK, page = ViewBag.CurPage + 1 }))" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+@section js {
+    <script src="~/Assets/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/Assets/sweetalert-master/lib/sweet-alert.min.js"></script>
+    <script>
+        $('.selectpicker').selectpicker();
+
+        $('#cboSort').change(function () {
+            $('#frmSort').submit();
+        });
+    </script>
+}
+

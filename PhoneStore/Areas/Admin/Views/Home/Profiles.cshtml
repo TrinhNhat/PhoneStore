@@ -1,0 +1,274 @@
+﻿@using PhoneStore.Models
+@using PhoneStore.Helpers
+
+@model ProfileModel
+
+@{
+    ViewBag.Title = "Thông tin cá nhân";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Thông tin cá nhân
+}
+
+@section js {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Assets/DatePicker-for-Bootstrap/js/bootstrap-datepicker.js"></script>
+
+    <script>
+    $('.datepicker').datepicker({
+        format: 'mm/dd/yyyy',
+    })
+
+    $('#DOB').datepicker()
+    .on('changeDate', function (ev) {
+        $('#DOB').datepicker('hide');
+    });
+
+    $.validator.addMethod("check_old", function (value, element) {
+
+        var dob = $("#DOB").val();
+        var age = 18;
+
+        var mydate = new Date(dob);
+
+        var currdate = new Date();
+        currdate.setFullYear(currdate.getFullYear() - age);
+
+        return currdate > mydate;
+
+    }, "Bạn không đủ 18 tuổi.");
+
+    $(function () {
+        $('#changePassForm').validate({
+            rules: {
+                UID: {
+                    required: true
+                },
+                PWD_OLD: {
+                    required: true,
+                    minlength: 6
+                },
+                PWD_NEW: {
+                    required: true,
+                    minlength: 6
+                },
+                PWD_NEW_CONFIRM: {
+                    required: true,
+                    equalTo: $("[name='PWD_NEW']")
+                },
+            },
+            messages: {
+                UID: {
+                    required: "Chưa nhập tên đăng nhập.",
+                },
+                PWD_OLD: {
+                    required: "Chưa nhập mật khẩu cũ.",
+                    minlength: "Mật khẩu cũ phải ít nhất 6 kí tự."
+                },
+                PWD_NEW: {
+                    required: "Chưa nhập mật khẩu mới",
+                    minlength: "Mật khẩu mới phải ít nhất 6 kí tự."
+                },
+                PWD_NEW_CONFIRM: {
+                    required: "Chưa nhập mật khẩu mới lần 2.",
+                    equalTo: "Mật khẩu nhập mới lại không đúng."
+                },
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                var alertDiv = $('.alert-warning', $('#changePassForm'));
+                error.appendTo(alertDiv);
+            },
+
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+
+            success: function (label) {
+                var name = label.attr('for');
+                $('[name=' + name + ']').closest('.form-group').removeClass('has-error');
+
+                label.remove();
+
+                if ($('.help-block', $('.alert-warning')).length === 0) {
+                    $('.alert-warning', $('#changePassForm')).addClass('hidden');
+                }
+            },
+            invalidHandler: function (event, validator) {
+                $('.alert-warning', $('#changePassForm')).removeClass('hidden');
+                $('.alert-success', $('#changePassForm')).addClass('hidden');
+            },
+        });
+    });
+
+    $(function () {
+        $('#changeProfileForm').validate({
+            rules: {
+                FullName: {
+                    required: true,
+                },
+                Email: {
+                    required: true,
+                },
+                DOB: {
+                    required: true,
+                    check_old: true
+                },
+            },
+            messages: {
+                FullName: {
+                    required: "Chưa nhập họ tên.",
+                },
+                Email: {
+                    required: "Chưa nhập email.",
+                    email: "Email không hợp lệ."
+                },
+                DOB: {
+                    required: "Chưa nhập ngày sinh",
+                },
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                var alertDiv = $('.alert-warning', $('#changeProfileForm'));
+                error.appendTo(alertDiv);
+            },
+
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+
+            success: function (label) {
+                var name = label.attr('for');
+                $('[name=' + name + ']').closest('.form-group').removeClass('has-error');
+
+                label.remove();
+
+                if ($('.help-block', $('.alert-warning')).length === 0) {
+                    $('.alert-warning', $('#changeProfileForm')).addClass('hidden');
+                }
+            },
+            invalidHandler: function (event, validator) {
+                $('.alert-warning', $('#changeProfileForm')).removeClass('hidden');
+                $('.alert-success', $('#changeProfileForm')).addClass('hidden');
+            },
+        });
+    });
+
+    $('#btnUpPass').click(function () {
+        $('#changePassForm').submit();
+    });
+
+    $('#UpProfile').click(function () {
+        $('#changeProfileForm').submit();
+    });
+    </script>
+
+}
+
+@section css {
+    <link href="~/Assets/DatePicker-for-Bootstrap/css/datepicker.css" rel="stylesheet" />
+}
+
+<form class="form-horizontal" action="@Url.Action("ChangePassword", "Home")" method="post" id="changePassForm">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="alert alert-warning alert-dismissible @(ViewBag.Err == null ? "hidden" : "")" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Lỗi: </strong><span>@ViewBag.Err</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="alert alert-success @(ViewBag.Board == null ? "hidden" : "")" role="alert"><strong>Thành công! </strong><span>@ViewBag.Board</span></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h4>Thay đổi mật khẩu</h4><hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="hidden" name="ID" value="@CurrentContext.GetCurAcc().MaTK" />
+                    <input type="text" class="form-control" name="UID" placeholder="Tên đăng nhập" value="@CurrentContext.GetCurAcc().TenDN" readonly="readonly" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="password" class="form-control" name="PWD_OLD" placeholder="Mật khẩu cũ" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="password" class="form-control" name="PWD_NEW" placeholder="Mật khẩu mới" />
+                </div>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control" name="PWD_NEW_CONFIRM" placeholder="Nhập lại mật khẩu mới" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button type="submit" id="btnUpPass" class="btn btn-success pull-right">
+                        <i class="fa fa-check"></i> Cập nhật
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form class="form-horizontal" action="@Url.Action("ChangeProfile", "Home")" method="post" id="changeProfileForm">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="alert alert-warning alert-dismissible @(ViewBag.Err == null ? "hidden" : "")" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Lỗi: </strong><span>@ViewBag.Err</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="alert alert-success @(ViewBag.aBoard == null ? "hidden" : "")" role="alert"><strong>Thành công! </strong><span>@ViewBag.aBoard</span></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1 title">
+            <h4>Thông tin cá nhân</h4><hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="hidden" name="ID" value="@CurrentContext.GetCurAcc().MaTK" />
+                    <input type="text" class="form-control" name="FullName" placeholder="Họ tên" value="@CurrentContext.GetCurAcc().TenKH" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="email" class="form-control" name="Email" placeholder="Email" value="@CurrentContext.GetCurAcc().Email" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="text" class="form-control datepicker" id="DOB" name="DOB" placeholder="Ngày sinh" readonly="readonly" value="@Convert.ToDateTime(CurrentContext.GetCurAcc().NgaySinh).ToString("MM/dd/yyyy").Split(' ')[0]" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-success pull-right" id="UpProfile">
+                        <i class="fa fa-check"></i> Cập nhật
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

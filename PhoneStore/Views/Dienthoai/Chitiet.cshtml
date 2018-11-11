@@ -1,0 +1,176 @@
+﻿
+@{
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using PhoneStore.Models
+@model DIENTHOAI
+
+@section title{
+    Chi tiết sản phẩm
+}
+
+
+@section css {
+    <link href="~/Assets/sweetalert-master/lib/sweet-alert.css" rel="stylesheet" />
+    <link href="~/Assets/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+}
+
+@section js {
+    <script src="~/Assets/sweetalert-master/lib/sweet-alert.min.js"></script>
+    <script src="~/Assets/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script>
+        $("input[name='Quantity']").TouchSpin({
+            min: 1,
+            max: 200,
+            step: 1,
+        });
+
+        $('a[data-proid]').on('click', function () {
+            var id = $('#txtProIDv').val();
+            $("#txtID").val(id);
+            var proId = $(this).attr('data-proid');
+            $("#txtProID").val(proId);
+            $('#frmAddToCart').submit();
+        });
+    </script>
+
+}
+
+
+@if (Model == null)
+{
+    <text>Không có dữ liệu </text>
+}
+else
+{
+    <div class="col-sm-6">
+        <img src="/Images/Products/@Model.MaDT/lg.png" width="400" height="450" alt="@Model.TenDT" title="@Model.TenDT" />
+    </div>
+    <div class="col-sm-6">
+        <h2>@Model.TenDT</h2>
+        <hr />
+        @*<p style="color: gray; font-size: 9pt;"></p>*@
+        <p><img src="/Images/Product-details/rating.jpg" width="150" height="29" alt="" /></p>
+        <p><strong>Giá bán : </strong><span style="font-size: 15pt; color: orange">@string.Format("{0:N0}", Model.DonGia) ₫</span></p>
+
+        @if (PhoneStore.Helpers.CurrentContext.IsLogin())
+        {
+            <form class="form-horizontal" method="post" action="@Url.Action("AddToCart","Giohang")" id="cartAddForm">
+                <input type="hidden" id="txtProIDv" name="ProID" value="@Model.MaDT" />
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" name="Quantity" id="txtQuantity" class="form-control" value="1" readonly="readonly" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="submit" id="txtDathang">
+                                    <i class="fa fa-cart-plus"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <input type="hidden" name="txtSLTon" id="txtSLTon" value="@Model.SLTon" />
+
+        }
+        <hr />
+        <p>Nhà sản xuất : <span>@ViewBag.nsx</span></p>
+        <p>Hãng điện thoại : <span>@ViewBag.hang</span></p>
+        <p>Xuất xứ : <span>@ViewBag.qg</span></p>
+        <hr />
+        <p>Đã bán : <span>@Model.SLBan</span> sản phẩm</p>
+        <p>Còn lại : <span>@Model.SLTon</span> sản phẩm</p>
+        <p>Số lượt xem : <span>@Model.SLXem</span></p>
+        <br /><br />
+    </div>
+    <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông số kỹ thuật</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Sản phẩm cùng hãng</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Sản phẩm cùng nhà sản xuất</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @Html.Raw(HttpUtility.HtmlDecode(Model.MotaDai))
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                @if (ViewBag.dshang.Count == 0)
+                {
+                    <text>Không có sản phẩm nào</text>
+                }
+                else
+                {
+                    <div class="row" style="margin-top: 15px">
+                        @foreach (DIENTHOAI dt in ViewBag.dshang)
+                        {
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <a href="@Url.Action("Chitiet", "Dienthoai", new { id = @dt.MaDT })"><img src="/Images/Products/@dt.MaDT/sm.jpg" width="241" height="83" alt="@dt.TenDT" title="@dt.TenDT" /></a>
+                                    <div class="caption">
+                                        <a href="@Url.Action("Chitiet", "Dienthoai", new { id = @dt.MaDT })"><h3>@dt.TenDT</h3></a>
+                                        <span style="color: green; font-size: 15pt">@string.Format("{0:N0}", dt.DonGia) ₫</span><br /><br />
+                                        <span style="font-size: 12pt; color: seagreen">Đã bán: @dt.SLBan</span><br /><br />
+                                        <p>
+                                            <a href="@Url.Action("Chitiet", "Dienthoai", new { id = @dt.MaDT })" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Chi tiết</a>
+                                            @if (PhoneStore.Helpers.CurrentContext.IsLogin())
+                                            {
+                                                <a href="#" data-proid="@dt.MaDT" class="btn btn-danger" role="button"><i class="fa fa-shopping-cart"></i> Mua hàng</a>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            <div role="tabpanel" class="tab-pane" id="messages">
+                @if (ViewBag.dsnsx.Count == 0)
+                {
+                    <text>Không có sản phẩm nào</text>
+                }
+                else
+                {
+                    <div class="row" style="margin-top: 15px">
+                        @foreach (DIENTHOAI dt in ViewBag.dsnsx)
+                        {
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <a href="@Url.Action("Chitiet", "Dienthoai", new { id = @dt.MaDT })"><img src="/Images/Products/@dt.MaDT/sm.jpg" width="241" height="83" alt="@dt.TenDT" title="@dt.TenDT" /></a>
+                                    <div class="caption">
+                                        <a href="@Url.Action("Chitiet", "Dienthoai", new { id = @dt.MaDT })"><h3>@dt.TenDT</h3></a>
+                                        <span style="color: green; font-size: 15pt">@string.Format("{0:N0}", dt.DonGia) ₫</span><br /><br />
+                                        <span style="font-size: 12pt; color: seagreen">Đã bán: @dt.SLBan</span><br /><br />
+                                        <p>
+                                            <a href="@Url.Action("ViewDetail", "Product", new { id = @dt.MaDT })" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> Chi tiết</a>
+                                            @if (PhoneStore.Helpers.CurrentContext.IsLogin())
+                                            {
+                                                <a href="#" data-proid="@dt.MaDT" class="btn btn-danger" role="button"><i class="fa fa-shopping-cart"></i> Mua hàng</a>
+                                            }
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<form id="frmAddToCart" method="post" action="@Url.Action("AddToCartAtDetail", "Giohang")">
+    <input type="hidden" name="id" id="txtID" />
+    <input type="hidden" name="ProID" id="txtProID" />
+</form>
+
+

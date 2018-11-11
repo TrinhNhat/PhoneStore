@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9b6ed140a2ec477889edc2d0d0b97905" Name="Diagram1">
+        <EntityTypeShape EntityType="QLPhoneStoreModel.CHITIETDONHANG" Width="1.5" PointX="5.5" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhoneStoreModel.DIENTHOAI" Width="1.5" PointX="3.25" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhoneStoreModel.DONHANG" Width="1.5" PointX="8.125" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhoneStoreModel.HANGDIENTHOAI" Width="1.5" PointX="0.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhoneStoreModel.NHASANXUAT" Width="1.5" PointX="0.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLPhoneStoreModel.TAIKHOAN" Width="1.5" PointX="7.125" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="QLPhoneStoreModel.NHASANXUATDIENTHOAI" />
+        <AssociationConnector Association="QLPhoneStoreModel.HANGDIENTHOAIDIENTHOAI" />
+        <AssociationConnector Association="QLPhoneStoreModel.DIENTHOAICHITIETDONHANG" />
+        <AssociationConnector Association="QLPhoneStoreModel.CHITIETDONHANGDONHANG" />
+        <AssociationConnector Association="QLPhoneStoreModel.DONHANGTAIKHOAN" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

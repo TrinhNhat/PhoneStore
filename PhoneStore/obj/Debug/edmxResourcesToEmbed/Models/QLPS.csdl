@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLPhoneStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CHITIETDONHANG">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaDH" Type="Int32" />
+    <Property Name="MaDT" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="DonGia" Type="Int32" />
+    <Property Name="ThanhTien" Type="Int32" />
+    <NavigationProperty Name="DIENTHOAI" Relationship="QLPhoneStoreModel.DIENTHOAICHITIETDONHANG" FromRole="CHITIETDONHANG" ToRole="DIENTHOAI" />
+    <NavigationProperty Name="DONHANGs" Relationship="QLPhoneStoreModel.CHITIETDONHANGDONHANG" FromRole="CHITIETDONHANG" ToRole="DONHANG" />
+  </EntityType>
+  <EntityType Name="DIENTHOAI">
+    <Key>
+      <PropertyRef Name="MaDT" />
+    </Key>
+    <Property Name="MaDT" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MotaNgan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MotaDai" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NgayNhap" Type="DateTime" Precision="0" />
+    <Property Name="DonGia" Type="Int32" />
+    <Property Name="SLTon" Type="Int32" />
+    <Property Name="SLBan" Type="Int32" />
+    <Property Name="SLXem" Type="Int32" />
+    <Property Name="MaNSX" Type="Int32" />
+    <Property Name="MaHang" Type="Int32" />
+    <NavigationProperty Name="NHASANXUAT" Relationship="QLPhoneStoreModel.NHASANXUATDIENTHOAI" FromRole="DIENTHOAI" ToRole="NHASANXUAT" />
+    <NavigationProperty Name="HANGDIENTHOAI" Relationship="QLPhoneStoreModel.HANGDIENTHOAIDIENTHOAI" FromRole="DIENTHOAI" ToRole="HANGDIENTHOAI" />
+    <NavigationProperty Name="CHITIETDONHANGs" Relationship="QLPhoneStoreModel.DIENTHOAICHITIETDONHANG" FromRole="DIENTHOAI" ToRole="CHITIETDONHANG" />
+  </EntityType>
+  <EntityType Name="DONHANG">
+    <Key>
+      <PropertyRef Name="MaDH" />
+    </Key>
+    <Property Name="MaDH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaTK" Type="Int32" />
+    <Property Name="NgayDatHang" Type="DateTime" Precision="0" />
+    <Property Name="NguoiDat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TongCong" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="TinhTrang" Type="String" MaxLength="55" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CHITIETDONHANG" Relationship="QLPhoneStoreModel.CHITIETDONHANGDONHANG" FromRole="DONHANG" ToRole="CHITIETDONHANG" />
+    <NavigationProperty Name="TAIKHOANs" Relationship="QLPhoneStoreModel.DONHANGTAIKHOAN" FromRole="DONHANG" ToRole="TAIKHOAN" />
+  </EntityType>
+  <EntityType Name="HANGDIENTHOAI">
+    <Key>
+      <PropertyRef Name="MaHang" />
+    </Key>
+    <Property Name="MaHang" Type="Int32" Nullable="false" />
+    <Property Name="TenHang" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DIENTHOAIs" Relationship="QLPhoneStoreModel.HANGDIENTHOAIDIENTHOAI" FromRole="HANGDIENTHOAI" ToRole="DIENTHOAI" />
+  </EntityType>
+  <EntityType Name="NHASANXUAT">
+    <Key>
+      <PropertyRef Name="MaNSX" />
+    </Key>
+    <Property Name="MaNSX" Type="Int32" Nullable="false" />
+    <Property Name="TenNSX" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="QuocGia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DIENTHOAIs" Relationship="QLPhoneStoreModel.NHASANXUATDIENTHOAI" FromRole="NHASANXUAT" ToRole="DIENTHOAI" />
+  </EntityType>
+  <EntityType Name="TAIKHOAN">
+    <Key>
+      <PropertyRef Name="MaTK" />
+    </Key>
+    <Property Name="MaTK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenDN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LoaiTK" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenKH" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="DONHANG" Relationship="QLPhoneStoreModel.DONHANGTAIKHOAN" FromRole="TAIKHOAN" ToRole="DONHANG" />
+  </EntityType>
+  <EntityContainer Name="QLPhoneStoreEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CHITIETDONHANGs" EntityType="Self.CHITIETDONHANG" />
+    <EntitySet Name="DIENTHOAIs" EntityType="Self.DIENTHOAI" />
+    <EntitySet Name="DONHANGs" EntityType="Self.DONHANG" />
+    <EntitySet Name="HANGDIENTHOAIs" EntityType="Self.HANGDIENTHOAI" />
+    <EntitySet Name="NHASANXUATs" EntityType="Self.NHASANXUAT" />
+    <EntitySet Name="TAIKHOANs" EntityType="Self.TAIKHOAN" />
+    <AssociationSet Name="NHASANXUATDIENTHOAI" Association="QLPhoneStoreModel.NHASANXUATDIENTHOAI">
+      <End Role="NHASANXUAT" EntitySet="NHASANXUATs" />
+      <End Role="DIENTHOAI" EntitySet="DIENTHOAIs" />
+    </AssociationSet>
+    <AssociationSet Name="HANGDIENTHOAIDIENTHOAI" Association="QLPhoneStoreModel.HANGDIENTHOAIDIENTHOAI">
+      <End Role="HANGDIENTHOAI" EntitySet="HANGDIENTHOAIs" />
+      <End Role="DIENTHOAI" EntitySet="DIENTHOAIs" />
+    </AssociationSet>
+    <AssociationSet Name="DIENTHOAICHITIETDONHANG" Association="QLPhoneStoreModel.DIENTHOAICHITIETDONHANG">
+      <End Role="DIENTHOAI" EntitySet="DIENTHOAIs" />
+      <End Role="CHITIETDONHANG" EntitySet="CHITIETDONHANGs" />
+    </AssociationSet>
+    <AssociationSet Name="CHITIETDONHANGDONHANG" Association="QLPhoneStoreModel.CHITIETDONHANGDONHANG">
+      <End Role="CHITIETDONHANG" EntitySet="CHITIETDONHANGs" />
+      <End Role="DONHANG" EntitySet="DONHANGs" />
+    </AssociationSet>
+    <AssociationSet Name="DONHANGTAIKHOAN" Association="QLPhoneStoreModel.DONHANGTAIKHOAN">
+      <End Role="DONHANG" EntitySet="DONHANGs" />
+      <End Role="TAIKHOAN" EntitySet="TAIKHOANs" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="NHASANXUATDIENTHOAI">
+    <End Type="QLPhoneStoreModel.NHASANXUAT" Role="NHASANXUAT" Multiplicity="0..1" />
+    <End Type="QLPhoneStoreModel.DIENTHOAI" Role="DIENTHOAI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHASANXUAT">
+        <PropertyRef Name="MaNSX" />
+      </Principal>
+      <Dependent Role="DIENTHOAI">
+        <PropertyRef Name="MaNSX" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="HANGDIENTHOAIDIENTHOAI">
+    <End Type="QLPhoneStoreModel.HANGDIENTHOAI" Role="HANGDIENTHOAI" Multiplicity="0..1" />
+    <End Type="QLPhoneStoreModel.DIENTHOAI" Role="DIENTHOAI" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HANGDIENTHOAI">
+        <PropertyRef Name="MaHang" />
+      </Principal>
+      <Dependent Role="DIENTHOAI">
+        <PropertyRef Name="MaHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DIENTHOAICHITIETDONHANG">
+    <End Type="QLPhoneStoreModel.DIENTHOAI" Role="DIENTHOAI" Multiplicity="0..1" />
+    <End Type="QLPhoneStoreModel.CHITIETDONHANG" Role="CHITIETDONHANG" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DIENTHOAI">
+        <PropertyRef Name="MaDT" />
+      </Principal>
+      <Dependent Role="CHITIETDONHANG">
+        <PropertyRef Name="MaDT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CHITIETDONHANGDONHANG">
+    <End Type="QLPhoneStoreModel.CHITIETDONHANG" Role="CHITIETDONHANG" Multiplicity="*" />
+    <End Type="QLPhoneStoreModel.DONHANG" Role="DONHANG" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DONHANG">
+        <PropertyRef Name="MaDH" />
+      </Principal>
+      <Dependent Role="CHITIETDONHANG">
+        <PropertyRef Name="MaDH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DONHANGTAIKHOAN">
+    <End Type="QLPhoneStoreModel.DONHANG" Role="DONHANG" Multiplicity="*" />
+    <End Type="QLPhoneStoreModel.TAIKHOAN" Role="TAIKHOAN" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="TAIKHOAN">
+        <PropertyRef Name="MaTK" />
+      </Principal>
+      <Dependent Role="DONHANG">
+        <PropertyRef Name="MaTK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

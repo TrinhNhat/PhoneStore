@@ -1,0 +1,49 @@
+﻿@model List<PhoneStore.Models.OrderDetailModel>
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Chi tiết đơn hàng @ViewBag.MaDH
+}
+
+@if (Model.Count == 0)
+{
+    <text>Không có dữ liệu !</text>
+}
+else
+{
+    <div class="=row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-sm-4">Sản phẩm</th>
+                        <th class="col-sm-2">Số lượng</th>
+                        <th class="col-sm-2">Đơn giá</th>
+                        <th class="col-sm-2">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cim in Model)
+                    {
+                        <tr>
+                            <td>@cim.dt.TenDT</td>
+                            <td>@cim.Soluong</td>
+                            <td>@string.Format("{0:N0}", cim.DonGia) ₫</td>
+                            <td>@string.Format("{0:N0}", cim.ThanhTien) ₫</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <a class="btn btn-info" role="button" href="@Url.Action("GetAllOrder", "Giohang")">
+                <i class="fa fa-mail-reply"></i> Quay lại
+            </a>
+        </div>
+    </div>
+}
+

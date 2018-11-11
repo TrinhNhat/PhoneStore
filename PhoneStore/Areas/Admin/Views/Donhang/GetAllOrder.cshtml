@@ -1,0 +1,106 @@
+﻿@model List<PhoneStore.Models.DONHANG>
+
+@{
+    ViewBag.Title = "Quản lý đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Quản lý đơn hàng
+}
+
+@section css {
+    <link href="~/Assets/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Assets/sweetalert-master/lib/sweet-alert.css" rel="stylesheet" />
+}
+
+<br />
+<form id="frmSort" method="post" action="@Url.Action("SortOrder", "Donhang")">
+    <div class="row" style="margin-left: 0px; margin-bottom: 5px">
+        <select class="selectpicker" id="cboSort" name="dk">
+            <option value="0" @(ViewBag.DK == null ? "selected='selected'" : "")>Sắp xếp đơn hàng</option>
+            <option value="1" @(ViewBag.DK == 1 ? "selected='selected'" : "")>Ngày thanh toán tăng dần</option>
+            <option value="2" @(ViewBag.DK == 2 ? "selected='selected'" : "")>Ngày thanh toán giảm dần</option>
+            <option value="3" @(ViewBag.DK == 3 ? "selected='selected'" : "")>Tổng tiền tăng dần</option>
+            <option value="4" @(ViewBag.DK == 4 ? "selected='selected'" : "")>Tổng tiền giảm dần</option>
+        </select>
+    </div>
+</form>
+<div class="=row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="col-sm-1">Mã ĐH</th>
+                    <th class="col-sm-2">Mã Khách Hàng</th>
+                    <th class="col-sm-3">Tên Khách Hàng</th>
+                    <th class="col-sm-2">Ngày thanh toán</th>
+                    <th class="col-sm-2">Tổng tiền (VNĐ)</th>
+                    <th class="col-sm-3">Tình trạng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sp in Model)
+                {
+                    <tr style="@(sp.TinhTrang == "Đã giao hàng" ? "background-color: #d9edf7" : "")">
+                        <td>@sp.MaDH</td>
+                        <td>@sp.MaTK</td>
+                        <td>@sp.NguoiDat</td>
+                        <td>@Convert.ToDateTime(sp.NgayDatHang).ToString("MM/dd/yyyy").Split(' ')[0]</td>
+                        <td>@string.Format("{0:N0}", sp.TongCong)</td>
+                        <td>
+                            <select name="TinhTrang" id="TinhTrang" class="form-control selectpicker" data-madh="@sp.MaDH">
+                                <option value="1" @(sp.TinhTrang == "Chưa giao hàng" ? "selected='selected'" : "")>Chưa giao hàng</option>
+                                <option value="2" @(sp.TinhTrang == "Đã giao hàng" ? "selected='selected'" : "")>Đã giao hàng</option>
+                            </select>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination">
+                <li class="@(ViewBag.CurPage == 1 ? "disabled" : "")">
+                    <a href="@(ViewBag.CurPage == 1 ? "#" : @Url.Action("GetAllOrder", "Donhang", new { page = ViewBag.CurPage - 1 }))" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @for (int i = 1; i <= ViewBag.PageCount; i++)
+                {
+                    <li class="@(ViewBag.CurPage == i ? "active" : "")"><a href="@Url.Action("GetAllOrder", "Donhang", new { page = i })">@i</a></li>
+                }
+                <li class="@(ViewBag.CurPage == ViewBag.PageCount ? "disabled" : "")">
+                    <a href="@(ViewBag.CurPage == ViewBag.PageCount ? "#" : @Url.Action("GetAllOrder", "Donhang", new { page = ViewBag.CurPage + 1 }))" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<form id="frmChangeStatus" method="post" action="@Url.Action("ChangeStatus", "Donhang")">
+    <input type="hidden" name="id" />
+    <input type="hidden" name="tt" />
+    <input type="hidden" name="page" value="@ViewBag.CurPage" />
+</form>
+@section js {
+    <script src="~/Assets/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/Assets/sweetalert-master/lib/sweet-alert.min.js"></script>
+    <script>
+        $('.selectpicker').selectpicker();
+
+        $('select[data-madh]').change(function () {
+            var id = $(this).attr('data-madh');
+            $("input[name='id']").val(id);
+            var tt = $(this).val();
+            $("input[name='tt']").val(tt);
+
+            $('#frmChangeStatus').submit();
+        });
+
+        $('#cboSort').change(function () {
+            $('#frmSort').submit();
+        });
+    </script>
+}
+

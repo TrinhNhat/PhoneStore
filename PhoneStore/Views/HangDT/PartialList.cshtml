@@ -1,0 +1,11 @@
+﻿@using PhoneStore.Models
+@model List<HANGDIENTHOAI>
+
+<div class="list-group">
+    @foreach (HANGDIENTHOAI h in Model)
+    {
+        <a href="@Url.Action("ByHang","Dienthoai", new { id= @h.MaHang}) " class="list-group-item">
+        @h.TenHang
+        </a>
+    }
+</div>

@@ -1,0 +1,33 @@
+﻿@model PhoneStore.Models.TAIKHOAN
+@{
+    ViewBag.Title = "Xóa người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Xóa người dùng
+}
+
+@if (Model == null)
+{
+    <text>Tài khoản người dùng đã xóa</text><hr />
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary"><i class="fa fa-mail-reply"></i> Danh sách người dùng</a>
+}
+else
+{
+    <form method="post" action="">
+        <input type="hidden" name="MaTK" value="@Model.MaTK" />
+
+        <h4>Mã tài khoản: @Model.MaTK</h4>
+        <h4>Tên đăng nhập: @Model.TenDN</h4>
+        <h4>Email: @Model.Email</h4>
+        <h4>Loại tài khoản: @Model.LoaiTK</h4>
+        <h4>Tên người dùng: @Model.TenKH</h4>
+        <h4>Ngày sinh: @Convert.ToDateTime(Model.NgaySinh).ToString("MM/dd/yyyy").Split(' ')[0]</h4>
+        <br />
+        
+        <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Xóa</button>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary"><i class="fa fa-mail-reply"></i> Danh sách người dùng</a>
+    </form>
+}
+

@@ -1,0 +1,80 @@
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\csc.exe
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\System.Collections.Immutable.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\System.Reflection.Metadata.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\vbc.exe
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\VBCSCompiler.exe
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\roslyn\VBCSCompiler.exe.config
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\PhoneStore.dll.config
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\PhoneStore.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\PhoneStore.pdb
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\EntityFramework.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\EntityFramework.SqlServer.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\Microsoft.Web.Infrastructure.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Helpers.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Mvc.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Razor.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Webpages.Deployment.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Webpages.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Webpages.Razor.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\EntityFramework.xml
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\EntityFramework.SqlServer.xml
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Razor.xml
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Webpages.xml
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Webpages.Deployment.xml
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Webpages.Razor.xml
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Helpers.xml
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\System.Web.Mvc.xml
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\obj\Debug\PhoneStore.csprojResolveAssemblyReference.cache
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\obj\Debug\PhoneStore.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\obj\Debug\PhoneStore.pdb
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\BotDetect.dll
+D:\1510543_trinhminhnhat\ASP.NET MVC5\PhoneStore\PhoneStore\bin\BotDetect.Web.Mvc.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\csc.exe
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\System.Collections.Immutable.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\System.Reflection.Metadata.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\vbc.exe
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\VBCSCompiler.exe
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\roslyn\VBCSCompiler.exe.config
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\PhoneStore.dll.config
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\PhoneStore.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\PhoneStore.pdb
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\BotDetect.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\BotDetect.Web.Mvc.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\EntityFramework.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\EntityFramework.SqlServer.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\Microsoft.Web.Infrastructure.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Helpers.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Mvc.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Razor.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Webpages.Deployment.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Webpages.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Webpages.Razor.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\EntityFramework.xml
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\EntityFramework.SqlServer.xml
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Razor.xml
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Webpages.xml
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Webpages.Deployment.xml
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Webpages.Razor.xml
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Helpers.xml
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\bin\System.Web.Mvc.xml
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\obj\Debug\PhoneStore.dll
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\obj\Debug\PhoneStore.pdb
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\obj\Debug\PhoneStore.csprojAssemblyReference.cache
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\obj\Debug\PhoneStore.csproj.CoreCompileInputs.cache
+D:\1510543_trinhminhnhat_15DTH2\PhoneStore\PhoneStore\obj\Debug\PhoneStore.csproj.CopyComplete

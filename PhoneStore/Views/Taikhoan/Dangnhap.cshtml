@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using PhoneStore.Models
+@model LoginModel
+
+@section title{
+    Đăng nhập 
+    }
+
+
+@section js {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script>
+    $(function () {
+        $('#loginForm').validate({
+            rules: {
+                UID: {
+                    required: true
+                },
+                PWD: {
+                    required: true,
+                },
+            },
+            messages: {
+                UID: {
+                    required: "Chưa nhập tên đăng nhập.",
+                },
+                PWD: {
+                    required: "Chưa nhập mật khẩu.",
+                },
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function (error, element) {
+                var alertDiv = $('.alert-warning', $('#loginForm'));
+                error.appendTo(alertDiv);
+            },
+
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+
+            success: function (label) {
+                var name = label.attr('for');
+                $('[name=' + name + ']').closest('.form-group').removeClass('has-error');
+
+                label.remove();
+
+                if ($('.help-block', $('.alert-warning')).length === 0) {
+                    $('.alert-warning', $('#loginForm')).addClass('hidden');
+                }
+            },
+            invalidHandler: function (event, validator) {
+                $('.alert-warning', $('#loginForm')).removeClass('hidden');
+            },
+        });
+    });
+    </script>
+
+}
+
+<br />
+<div class="row">
+    <form class="form-horizontal" action="" method="post" id="loginForm">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="alert alert-warning alert-dismissible @(ViewBag.Err == null ? "hidden" : "")" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Lỗi : </strong><span>@ViewBag.Err</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UID" class="col-sm-4 control-label">Tên đăng nhập</label>
+            <div class="col-sm-5">
+                <input type="hidden" name="retUrl" value="@ViewBag.RetUrl" />
+                <input type="text" class="form-control" id="UID" name="UID" placeholder="Tên đăng nhập">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="PWD" class="col-sm-4 control-label">Mật khẩu</label>
+            <div class="col-sm-5">
+                <input type="password" class="form-control" id="PWD" name="PWD" placeholder="Mật khẩu">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.RememberMe) Ghi nhớ
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-10">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in"></i>  Đăng nhập</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+

@@ -1,0 +1,93 @@
+﻿@using PhoneStore.Helpers;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Assets/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Assets/font-awesome-4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+    @RenderSection("css", required: false)
+</head>
+<body>
+    <div class="container body-content">
+        <div class="panel panel-info">
+            <div class="panel-body">
+                <div class="page-header">
+                    <h1>Xin chào ! <a href="/Admin/Home/Profiles">@CurrentContext.GetCurAcc().TenKH</a> <small>Manager System Web</small>
+                        <a id="linkLogout" href="#" class="fa fa-paw pull-right">Thoát</a>
+                    </h1>
+                   
+                </div>
+                <form id="logoutForm" action="@Url.Action("Logout", "Login")" method="post"></form>
+                <div class="row">
+                    <ul class="nav nav-pills nav-justified">
+                        <li role="presentation"><a href="@Url.Action("Index", "Home")"><i class="fa fa-user-secret fa-2x"></i> Quản lý tài khoản</a></li>
+                        <li role="presentation"><a href="@Url.Action("GetAllProduct", "Product")"><i class="glyphicon glyphicon-phone fa-2x"></i> Quản lý sản phẩm</a></li>
+                        <li role="presentation"><a href="@Url.Action("GetAllLoai", "HangDT")"><i class="fa fa-android fa-2x"></i> Quản lý hãng đt</a></li>
+                        <li role="presentation"><a href="@Url.Action("GetAllNSX", "NhaSX")"><i class="fa fa-apple fa-2x"></i> Quản lý nhà sản xuất</a></li>
+                        <li role="presentation"><a href="@Url.Action("GetAllOrder", "Donhang")"><i class="fa fa-edit fa-2x"></i> Quản lý đơn hàng</a></li>
+                        <li role="presentation"><a href="/Home/Index"><i class="fa fa-rocket fa-2x"></i> Tới cửa hàng</a></li>
+                    </ul>
+                </div>
+                <hr />
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@RenderSection("title", required: true)</h3>
+                    </div>
+                    <div class="panel-body">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <br>
+                <div class="col-md-4">
+                    <center>
+                        <img src="~/Images/Home/programer.jpg" class="img-circle" alt="the-brains">
+                        <br>
+                        <h4 class="footertext">Programmer</h4>
+                        <p class="footertext">Traning Team<br>
+                    </center>
+                </div>
+                <div class="col-md-4">
+                    <center>
+                        <img src="~/Images/Home/artist.jpg" class="img-circle" alt="...">
+                        <br>
+                        <h4 class="footertext">Artist</h4>
+                        <p class="footertext">Training Team<br>
+                    </center>
+                </div>
+                <div class="col-md-4">
+                    <center>
+                        <img src="~/Images/Home/designer.jpg" class="img-circle" alt="...">
+                        <br>
+                        <h4 class="footertext">Designer</h4>
+                        <p class="footertext">Trịnh Minh Nhật<br>
+                    </center>
+                </div>
+            </div>
+            <div class="row">
+                <p class="footertext" style="text-align:center">Copyright &copy;@DateTime.Now.Year Phone Store</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Assets/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+    <script>
+            $('#linkLogout').click(function () {
+                $('#logoutForm').submit();
+            });
+
+    </script>
+
+    @RenderSection("js", required: false)
+</body>
+</html>
+

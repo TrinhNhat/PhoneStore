@@ -1,0 +1,96 @@
+﻿@model PhoneStore.Models.HANGDIENTHOAI
+@{
+    ViewBag.Title = "Chỉnh sửa hãng điện thoại";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Chỉnh sửa hãng điện thoại
+}
+
+@section css {
+    <link href="~/Assets/sweetalert-master/lib/sweet-alert.css" rel="stylesheet" />
+}
+
+@section js {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Assets/sweetalert-master/lib/sweet-alert.min.js"></script>
+
+    <script>
+    $(function () {
+        $('#frmEditLoai').validate({
+            rules: {
+                TenHang: {
+                    required: true
+                },
+            },
+            messages: {
+                TenHang: {
+                    required: "Chưa nhập tên hãng.",
+                },
+            },
+            errorElement: 'span',
+            errorClass: 'help-block',
+            errorPlacement: function(error, element){
+                var alertDiv = $('.alert-warning', $('#frmEditLoai'));
+                error.appendTo(alertDiv);
+            },
+
+            highlight: function (element) {
+                $(element).closest('.form-group').addClass('has-error');
+            },
+
+            success: function (label)
+            {
+                var name = label.attr('for');
+                $('[name=' + name + ']').closest('.form-group').removeClass('has-error');
+
+                label.remove();
+
+                if($('.help-block', $('.alert-warning')).length === 0) {
+                    $('.alert-warning', $('#frmEditLoai')).addClass('hidden');
+                }
+            },
+            invalidHandler: function (event, validator) {
+                $('.alert-warning', $('#frmEditLoai')).removeClass('hidden');
+                $('.alert-success', $('#frmEditLoai')).addClass('hidden');
+            },
+        });
+    });
+
+    @if(ViewBag.Added != null && ViewBag.Added == true)
+    {
+        <text>swal("Thành công!", "Đã cập nhật 1 hãng điện thoại!", "success")</text>
+    }
+    </script>
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form class="form-horizontal" method="post" action="" id="frmEditLoai">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="alert alert-warning alert-dismissible @(ViewBag.Err == null ? "hidden" : "")" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Lỗi: </strong><span>@ViewBag.Err</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TenHang" class="col-sm-2 control-label">Tên hãng</label>
+                <div class="col-sm-3">
+                    <input type="hidden" name="MaHang" value="@Model.MaHang">
+                    <input type="text" class="form-control" id="TenHang" name="TenHang" placeholder="Tên hãng điện thoại" value="@Model.TenHang">
+                </div>
+            </div>
+            <br />
+            <a href="@Url.Action("GetAllLoai", "HangDT")" class="btn btn-primary" role="button">
+                <i class="fa fa-mail-reply"></i> Danh sách hãng
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Cập nhật
+            </button>
+        </form>
+    </div>
+</div>
+

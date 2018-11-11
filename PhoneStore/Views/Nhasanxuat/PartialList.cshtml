@@ -1,0 +1,11 @@
+﻿@using PhoneStore.Models
+@model List<NHASANXUAT>
+
+<div class="list-group">
+    @foreach (NHASANXUAT nsx in Model)
+    {
+        <a href="@Url.Action("ByNSX","Dienthoai", new { id= @nsx.MaNSX}) " class="list-group-item">
+            @nsx.TenNSX
+        </a>
+    }
+</div>

@@ -1,0 +1,84 @@
+﻿@using PhoneStore.Models
+@model List<DONHANG>
+
+@{
+    ViewBag.Title = "Lịch sử giao dịch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Lịch sử giao dịch - mua hàng
+}
+
+@section css {
+    <link href="~/Assets/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+}
+
+@if (Model.Count == 0)
+{
+    <text>Không có đơn hàng nào !</text>
+}
+else
+{
+    <form id="frmGetDetailOrder" method="post" action="@Url.Action("GetDetailOrder", "Giohang")">
+        <input type="hidden" name="MaDH" />
+    </form>
+    <form id="frmSort" method="post" action="@Url.Action("SortOrder", "Giohang")">
+        <div class="row" style="margin-left: 0px; margin-bottom: 5px">
+            <select class="selectpicker" id="cboSort" name="dk">
+                <option value="0" @(ViewBag.DK == null ? "selected='selected'" : "")>Sắp xếp đơn hàng</option>
+                <option value="1" @(ViewBag.DK == 1 ? "selected='selected'" : "")>Ngày thanh toán tăng dần</option>
+                <option value="2" @(ViewBag.DK == 2 ? "selected='selected'" : "")>Ngày thanh toán giảm dần</option>
+                <option value="3" @(ViewBag.DK == 3 ? "selected='selected'" : "")>Tổng tiền tăng dần</option>
+                <option value="4" @(ViewBag.DK == 4 ? "selected='selected'" : "")>Tổng tiền giảm dần</option>
+            </select>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="col-sm-2">Mã Đơn Hàng</th>
+                        <th class="col-sm-2">Mã Khách Hàng</th>
+                        <th class="col-sm-3">Tên Khách Hàng</th>
+                        <th class="col-sm-2">Ngày thanh toán</th>
+                        <th class="col-sm-2">Tổng tiền</th>
+                        <th class="col-sm-2">Xem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cim in Model)
+                    {
+                        <tr>
+                            <td>@cim.MaDH</td>
+                            <td>@cim.MaTK</td>
+                            <td>@cim.NguoiDat</td>
+                            <td>@cim.NgayDatHang.ToString().Split(' ')[0]</td>
+                            <td>@cim.TongCong</td>
+                            <td><a href="#" data-orid="@cim.MaDH"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@section js {
+    <script src="~/Assets/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script>
+    $('.selectpicker').selectpicker();
+
+   $('a[data-orid]').on('click', function () {
+       var orId = $(this).attr('data-orid');
+       $("input[name='MaDH']").val(orId);
+       $('#frmGetDetailOrder').submit();
+   });
+
+   $('#cboSort').change(function () {
+       $('#frmSort').submit();
+   });
+    </script>
+}
+

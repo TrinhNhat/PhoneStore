@@ -1,0 +1,29 @@
+﻿@model PhoneStore.Models.NHASANXUAT
+@{
+    ViewBag.Title = "Xóa nhà sản xuất";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Xóa nhà sản xuất
+}
+
+@if (Model == null)
+{
+    <text>Nhà sản xuất đã bị xóa</text><hr />
+    <a href="@Url.Action("GetAllNSX", "NhaSX")" class="btn btn-primary"><i class="fa fa-mail-reply"></i> Danh sách nhà sản xuất</a>
+}
+else
+{
+    <form method="post" action="">
+        <input type="hidden" name="MaNSX" value="@Model.MaNSX" />
+
+        <h3>Mã nhà sản xuất: @Model.MaNSX</h3>
+        <h4>Tên nhà sản xuất: @Model.TenNSX</h4>
+        <h4>Quốc gia: @Model.QuocGia</h4>
+        <br />
+        <a href="@Url.Action("GetAllNSX", "NhaSX")" class="btn btn-primary"><i class="fa fa-mail-reply"></i> Danh sách nhà sản xuất</a>
+        <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Xóa</button>
+    </form>
+}
+

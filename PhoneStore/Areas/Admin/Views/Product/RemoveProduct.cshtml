@@ -1,0 +1,31 @@
+﻿@model PhoneStore.Models.DIENTHOAI
+
+@{
+    ViewBag.Title = "Xóa sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Xóa sản phẩm
+}
+
+@if (Model == null)
+{
+    <text>Sản phẩm đã xóa</text><hr />
+    <a href="@Url.Action("GetAllProduct", "Product")" class="btn btn-primary"><i class="fa fa-mail-reply"></i> Danh sách sản phẩm</a>
+}
+else
+{
+    <form method="post" action="">
+        <input type="hidden" name="MaDT" value="@Model.MaDT" />
+        <h3>@Model.TenDT</h3>
+        <h4>@Model.DonGia USD</h4>
+        <h5>Số lượng: @Model.SLTon</h5>
+        <h5>Ngày nhập: @Convert.ToDateTime(Model.NgayNhap).ToString("MM/dd/yyyy").Split(' ')[0]</h5>
+        <h6><span style="font-weight: bold">Mô tả dài:</span> @Model.MotaDai</h6>
+        <br />
+        <a href="@Url.Action("GetAllProduct", "Product")" class="btn btn-primary"><i class="fa fa-mail-reply"></i> Danh sách sản phẩm</a>
+        <button type="submit" class="btn btn-danger"><i class="fa fa-remove"></i> Xóa</button>
+    </form>
+}
+

@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "Thêm sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section title {
+    Thêm sản phẩm
+}
+
+@section css {
+    <link href="~/Assets/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Assets/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link href="~/Assets/sweetalert-master/lib/sweet-alert.css" rel="stylesheet" />
+}
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form class="form-horizontal" method="post" action="" id="frmAddProduct" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="alert alert-warning alert-dismissible @(ViewBag.Err == null ? "hidden" : "")" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Lỗi: </strong><span>@ViewBag.Err</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TenDT" class="col-sm-2 control-label">Sản phẩm</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="TenDT" name="TenDT" placeholder="Tên sản phẩm">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="DonGia" class="col-sm-2 control-label">Giá</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="DonGia" name="DonGia" placeholder="Đơn giá">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="SLTon" class="col-sm-2 control-label">Số lượng</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="SLTon" name="SLTon" placeholder="Số lượng" readonly="readonly" value="1">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="cboHang" class="col-sm-2 control-label">Hãng</label>
+                <div class="col-sm-3">
+                    <select class="form-control selectpicker" id="cboHang" name="MaHang">
+                        @foreach (var i in ViewBag.Hang)
+                        {
+                            <option value="@i.MaHang">@i.TenHang</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="cboNSX" class="col-sm-2 control-label">Nhà sản xuất</label>
+                <div class="col-sm-3">
+                    <select class="form-control selectpicker" id="cboNSX" name="MaNSX">
+                        @foreach (var i in ViewBag.Nsx)
+                        {
+                            <option value="@i.MaNSX">@i.TenNSX</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Hình nhỏ</label>
+                <div class="col-sm-3">
+                    <input type="file" name="fuHinhNho" data-filename-placement="inside" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fuLon" class="col-sm-2 control-label">Hình lớn</label>
+                <div class="col-sm-3">
+                    <input type="file" id="fuHinhLon" name="fuHinhLon" data-filename-placement="inside" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="MotaNgan" class="col-sm-2 control-label">Mô tả ngắn</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="txtMotaNgan" name="MotaNgan" placeholder="Mô tả ngắn">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fNho" class="col-sm-2 control-label">Mô tả dài</label>
+                <div class="col-sm-8">
+                    <textarea name="MotaDai" placeholder="Mô tả chi tiết sản phẩm"></textarea>
+                </div>
+            </div>
+            <br />
+            <a href="@Url.Action("GetAllProduct", "Product")" class="btn btn-primary pull-left" role="button">
+                <i class="fa fa-mail-reply"></i> Danh sách sản phẩm
+            </a>
+            <button type="submit" class="btn btn-primary pull-right">
+                <span class="fa fa-plus" aria-hidden="true"></span> Thêm
+            </button>
+        </form>
+    </div>
+</div>
+
+@section js {
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Assets/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="~/Assets/bootstrap.file-input.js"></script>
+    <script src="~/Assets/tinymce/tinymce.min.js"></script>
+    <script src="~/Assets/bootstrap-touchspin-master/dist/jquery.bootstrap-touchspin.min.js"></script>
+    <script src="~/Assets/sweetalert-master/lib/sweet-alert.min.js"></script>
+
+    <script>
+
+        $("input[id='SLTon']").TouchSpin({
+            min: 0,
+            max: 999,
+            step: 1,
+            verticalbuttons: true
+        });
+
+        $('input[type=file]').bootstrapFileInput();
+
+        tinymce.init(
+            {
+                selector: 'textarea',
+                menubar: false,
+                toolbar1: "styleselect | bold italic underline | Link Image | alignleft aligncenter alignright | bullist numlist",
+                toolbar2: "fontselect | fontsizeselect | forecolor backcolor",
+                plugin: 'link image textcolor',
+                encoding: "xml",
+            });
+
+        $('.selectpicker').selectpicker();
+
+        $(function () {
+            $('#frmUpdatePro').validate({
+                rules: {
+                    TenDT: {
+                        required: true
+                    },
+                    DonGia: {
+                        required: true,
+                        range: [0, 2147483647]
+                    },
+                },
+                messages: {
+                    TenDT: {
+                        required: "Chưa nhập tên điện thoại.",
+                    },
+                    DonGia: {
+                        required: "Chưa nhập giá sản phẩm.",
+                        range: "Giá tiền không đúng hoặc bị lỗi."
+                    },
+                },
+                errorElement: 'span',
+                errorClass: 'help-block',
+                errorPlacement: function(error, element){
+                    var alertDiv = $('.alert-warning', $('#frmUpdatePro'));
+                    error.appendTo(alertDiv);
+                },
+
+                highlight: function (element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+
+                success: function (label)
+                {
+                    var name = label.attr('for');
+                    $('[name=' + name + ']').closest('.form-group').removeClass('has-error');
+
+                    label.remove();
+
+                    if($('.help-block', $('.alert-warning')).length === 0) {
+                        $('.alert-warning', $('#frmUpdatePro')).addClass('hidden');
+                    }
+                },
+                invalidHandler: function (event, validator) {
+                    $('.alert-warning', $('#frmUpdatePro')).removeClass('hidden');
+                    $('.alert-success', $('#frmUpdatePro')).addClass('hidden');
+                },
+            });
+        });
+
+    @if(ViewBag.Added != null && ViewBag.Added == true)
+        {
+            <text>swal("Thành công!", "Đã thêm 1 điện thoại", "success")</text>
+        }
+    </script>
+}
+
